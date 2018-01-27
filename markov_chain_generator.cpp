@@ -252,19 +252,17 @@ std::vector<std::wstring> StringUtil::split(const std::wstring &wstr)
     std::wstring word;
 
     for (wchar_t symbol: wstr) {
-        if (iswblank(symbol)) {
-            if (word.empty()) {
-                continue;
-            }
-
-            result.push_back(word);
-            word.clear();
+        if (iswalpha(symbol)) {
+            word += towlower(symbol);
             continue;
         }
 
-        if (iswalpha(symbol)) {
-            word += towlower(symbol);
+        if (word.empty()) {
+            continue;
         }
+
+        result.push_back(word);
+        word.clear();
     }
 
     if (!word.empty()) {
