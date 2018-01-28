@@ -42,6 +42,8 @@ public:
 
     void append(const std::vector<std::string> &jWords);
     std::string toText() const;
+    uint32_t order() const;
+    std::string nextWord(const std::vector<std::string> &words);
 
 private:
     uint32_t m_order;
@@ -50,6 +52,8 @@ private:
     json &jRoot() { return m_json["markonChain"]; }
     json &jOrder() { return jRoot()["order"]; }
     json &jWords() { return jRoot()["words"]; }
+    json &jNextWordsCount(json &j) { return j["nextWordsCount"]; }
+    json &jNextWords(json &j) { return j["nextWords"]; }
 };
 
 

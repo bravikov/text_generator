@@ -28,6 +28,8 @@
 
 #include <fstream>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 MarkovChain::MarkovChain(const uint32_t &order): m_order(order)
 {
@@ -89,8 +91,16 @@ void MarkovChain::append(const std::vector<std::string> &words)
             jWord = &(*jWord)[word];
         }
 
+        json &jsonCount = jNextWordsCount(*jWord);
 
-        json &jsonWord = (*jWord)[words[i1 + m_order + 1]];
+        if (jsonCount.is_null()) {
+            jsonCount = 1;
+        }
+        else {
+            jsonCount = jsonCount.get<unsigned>() + 1;
+        }
+
+        json &jsonWord = jNextWords(*jWord)[words[i1 + m_order + 1]];
 
         if (jsonWord.is_null()) {
             jsonWord = 1;
@@ -105,4 +115,60 @@ std::string MarkovChain::toText() const
 {
     static const int indentSize = 4;
     return m_json.dump(indentSize);
+}
+
+uint32_t MarkovChain::order() const
+{
+    return m_order;
+}
+
+std::string MarkovChain::nextWord(const std::vector<std::string> &words)
+{
+    static bool sranded = false;
+    if (!sranded) {
+        std::srand(unsigned(std::time(0)));
+        sranded = true;
+    }
+
+    size_t minWordCount = m_order + 1;
+
+    if (words.size() < minWordCount) {
+        return std::string{};
+    }
+
+    json *jWord = &jWords();
+
+    for (auto it = words.end() - minWordCount; it != words.end(); ++it) {
+        auto w = (*jWord).find(*it);
+        if (w == (*jWord).end()) {
+            return std::string{};
+        }
+        jWord = &(*w);
+    }
+
+    const int randomValue = std::rand();
+
+    auto count = jNextWordsCount(*jWord).get<uint32_t>();
+
+    if (count > std::numeric_limits<decltype(randomValue)>::max()) {
+        std::cerr << "Недопустимое количество слов." << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    const uint32_t randomWordPosition = randomValue % count;
+
+    auto jNextWords_ = jNextWords(*jWord);
+
+    uint32_t currentWordPosition = 0;
+    for (auto it = jNextWords_.begin(); it != jNextWords_.end(); ++it) {
+        const uint32_t c = it.value();
+        currentWordPosition += c;
+
+        if (currentWordPosition > randomWordPosition) {
+            return it.key();
+        }
+    }
+
+    /* Если программа дошла до сюда, значит что-то не в порядке. */
+    return std::string{};
 }

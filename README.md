@@ -33,12 +33,18 @@ word и count — произвольные значения.
         "order": 0,
         "words": {
             "word": {
-                "word": count,
-                "word": count
+                "nextWordsCount": count
+                "nextWords": {
+                    "word": count,
+                    "word": count
+                }
             }
             "word": {
-                "word": count,
-                "word": count
+                "nextWordsCount": count
+                "nextWords": {
+                    "word": count,
+                    "word": count
+                }
             }
         }
     }
@@ -56,18 +62,27 @@ word и count — произвольные значения.
         "words": {
             "word": {
                 "word": {
-                    "word": count,
-                    "word": count
+                    "nextWordsCount": count
+                    "nextWords": {
+                        "word": count,
+                        "word": count
+                    }
                 }
                 "word": {
-                    "word": count,
-                    "word": count
+                    "nextWordsCount": count
+                    "nextWords": {
+                        "word": count,
+                        "word": count
+                    }
                 }
             }
             "word": {
                 "word": {
-                    "word": count,
-                    "word": count
+                    "nextWordsCount": count
+                    "nextWords": {
+                        "word": count,
+                        "word": count
+                    }
                 }
             }
         }
@@ -89,33 +104,69 @@ word и count — произвольные значения.
         "words": {
             "аа": {
                 "аа": {
-                    "бб": 1
+                    "nextWords": {
+                        "бб": 1
+                    },
+                    "nextWordsCount": 1
                 },
                 "бб": {
-                    "бб": 1
+                    "nextWords": {
+                        "бб": 1
+                    },
+                    "nextWordsCount": 1
                 }
             },
             "бб": {
                 "бб": {
-                    "бб": 1,
-                    "вв": 1
+                    "nextWords": {
+                        "бб": 1,
+                        "вв": 1
+                    },
+                    "nextWordsCount": 2
                 },
                 "вв": {
-                    "вв": 1
+                    "nextWords": {
+                        "вв": 1
+                    },
+                    "nextWordsCount": 1
                 }
             },
             "вв": {
                 "вв": {
-                    "вв": 2,
-                    "гг": 1
+                    "nextWords": {
+                        "вв": 2,
+                        "гг": 1
+                    },
+                    "nextWordsCount": 3
                 },
                 "гг": {
-                    "гг": 1
+                    "nextWords": {
+                        "гг": 1
+                    },
+                    "nextWordsCount": 1
                 }
             },
             "гг": {
                 "гг": {
-                    "гг": 3
+                    "nextWords": {
+                        "гг": 3,
+                        "хх": 1
+                    },
+                    "nextWordsCount": 4
+                },
+                "хх": {
+                    "nextWords": {
+                        "уу": 1
+                    },
+                    "nextWordsCount": 1
+                }
+            },
+            "хх": {
+                "уу": {
+                    "nextWords": {
+                        "йй": 1
+                    },
+                    "nextWordsCount": 1
                 }
             }
         }

@@ -30,16 +30,18 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <list>
 
 void printHelpAndExit();
 
 struct Options
 {
     std::string markovFilename;
-    unsigned numberOfGeneratedWords;
+    uint32_t numberOfGeneratedWords;
 };
 
 Options parseOptions(int argc, char *argv[]);
+std::vector<std::string> getInputWords();
 
 int main(int argc, char *argv[])
 {
@@ -49,9 +51,39 @@ int main(int argc, char *argv[])
 
     MarkovChain markovChain{options.markovFilename};
 
-    /* Принять открывок из стандартного потока ввода. */
+    std::vector<std::string> words = getInputWords();
 
     /* Сгенерировать текст */
+
+    if (words.size() != markovChain.order() + 1) {
+        std::cerr
+            << "Ошибка: количество слов в открывке не соответствует порядку"
+               " цепи Маркова."
+            << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    for (
+        decltype(options.numberOfGeneratedWords) i = 0;
+        i < options.numberOfGeneratedWords;
+        i++
+    ) {
+        std::string nextWord = markovChain.nextWord(words);
+
+        if (nextWord.empty()) {
+            break;
+        }
+
+        words.push_back(nextWord);
+    }
+
+    std::string text;
+    for (auto word: words) {
+        text += word + " ";
+    }
+    text.pop_back(); // Удалить последний пробел
+
+    std::cout << text << std::endl;
 
     return EXIT_SUCCESS;
 }
@@ -100,11 +132,14 @@ struct Options parseOptions(int argc, char *argv[])
         std::stringstream option2;
         option2.str(argv[2]);
 
-        int k = 0;
+        int64_t k = 0;
 
         option2 >> k;
 
-        if (!option2.eof() || option2.fail() || k < 0) {
+        auto maxK =
+            std::numeric_limits<decltype(Options::numberOfGeneratedWords)>::max();
+
+        if (!option2.eof() || option2.fail() || k < 0 || k > maxK) {
             std::cerr
                 << "Ошибка: неверное количество генерируемых слов.\n"
                 << std::endl;
@@ -119,4 +154,11 @@ struct Options parseOptions(int argc, char *argv[])
     }
 
     return {markovFilename, numberOfGeneratedWords};
+}
+
+std::vector<std::string> getInputWords()
+{
+    std::string inputString;
+    std::getline(std::cin, inputString);
+    return StringUtil::split(inputString);
 }
