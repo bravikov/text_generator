@@ -63,18 +63,18 @@ word и count — произвольные значения.
         "order": 0,
         "words": {
             "word": {
-                "nextWordsCount": count
                 "nextWords": {
                     "word": count,
                     "word": count
-                }
+                },
+                "nextWordsCount": count
             }
             "word": {
-                "nextWordsCount": count
                 "nextWords": {
                     "word": count,
                     "word": count
-                }
+                },
+                "nextWordsCount": count
             }
         }
     }
@@ -92,27 +92,27 @@ word и count — произвольные значения.
         "words": {
             "word": {
                 "word": {
-                    "nextWordsCount": count
                     "nextWords": {
                         "word": count,
                         "word": count
-                    }
+                    },
+                    "nextWordsCount": count
                 }
                 "word": {
-                    "nextWordsCount": count
                     "nextWords": {
                         "word": count,
                         "word": count
-                    }
+                    },
+                    "nextWordsCount": count
                 }
             }
             "word": {
                 "word": {
-                    "nextWordsCount": count
                     "nextWords": {
                         "word": count,
                         "word": count
-                    }
+                    },
+                    "nextWordsCount": count
                 }
             }
         }
