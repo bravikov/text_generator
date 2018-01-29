@@ -24,9 +24,6 @@
 **
 ****************************************************************************/
 
-#include "string_util.h"
-#include "markov_chain.h"
-
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -34,14 +31,17 @@
 #include <cstdio>
 #include <locale>
 
+#include "string_util.h"
+#include "markov_chain.h"
+
 struct Options
 {
     unsigned markovChainOrder;
 };
 
-Options parseOptions(int argc, char *argv[]);
+Options parseOptions(int argc, char* argv[]);
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     StringUtil::setLocale();
 
@@ -51,16 +51,20 @@ int main(int argc, char *argv[])
 
     std::vector<std::string> urls;
 
-    while (true) {
+    while (true)
+    {
         std::string url;
 
         std::cin >> url;
 
-        if (std::cin.fail()) {
-            if (std::cin.eof()) {
+        if (std::cin.fail())
+        {
+            if (std::cin.eof())
+            {
                 break;
             }
-            else {
+            else
+            {
                 std::cerr << "Не удалось прочитать URL из потока" << std::endl;
                 exit(EXIT_FAILURE);
             }
@@ -73,7 +77,8 @@ int main(int argc, char *argv[])
 
     MarkovChain markovChain{options.markovChainOrder};
 
-    for (auto url: urls) {
+    for (auto url: urls)
+    {
 
         /* Получить содержимое файла, к которому ведет URL. */
 
@@ -83,7 +88,8 @@ int main(int argc, char *argv[])
 
         FILE* pipe = popen(command.c_str(), mode);
 
-        if (pipe == nullptr) {
+        if (pipe == nullptr)
+        {
             std::cerr << "Не удалось запустить curl." << std::endl;
             exit(EXIT_FAILURE);
         }
@@ -91,7 +97,8 @@ int main(int argc, char *argv[])
         static const size_t bufferSize = 1000; /* Необоснованное значение */
         std::vector<char> buffer(bufferSize);
         std::string string;
-        while (fgets(buffer.data(), bufferSize, pipe) != nullptr) {
+        while (fgets(buffer.data(), bufferSize, pipe) != nullptr)
+        {
             string += buffer.data();
         }
 
@@ -107,7 +114,7 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
-Options parseOptions(int argc, char *argv[])
+Options parseOptions(int argc, char* argv[])
 {
     std::string helpMessage{
         "Вызов:\n"
@@ -121,14 +128,16 @@ Options parseOptions(int argc, char *argv[])
 
     unsigned markovChainOrder = 0;
 
-    if (argc == 2) {
+    if (argc == 2)
+    {
         std::stringstream ss;
         ss.str(argv[1]);
 
         int order;
         ss >> order;
 
-        if (!ss.eof() || ss.fail() || order < 0) {
+        if (!ss.eof() || ss.fail() || order < 0)
+        {
             std::cerr
                 << "Ошибка: неверный порядок цепи Маркова."
                 << "\n"
@@ -141,7 +150,8 @@ Options parseOptions(int argc, char *argv[])
 
         markovChainOrder = order;
     }
-    else {
+    else
+    {
         std::cerr << helpMessage << std::endl;
         exit(EXIT_FAILURE);
     }

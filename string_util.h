@@ -35,12 +35,12 @@ class StringUtil
 public:
     static void setLocale();
 
-    static std::wstring convert(const std::string &str);
-    static std::string convert(const std::wstring &wstr);
+    static std::wstring convert(const std::string& str);
+    static std::string convert(const std::wstring& wstr);
 
     /* Функции разделяют строку на слова и приводят их к одному регистру. */
-    static std::vector<std::string> split(const std::string &str);
-    static std::vector<std::wstring> split(const std::wstring &wstr);
+    static std::vector<std::string> split(const std::string& str);
+    static std::vector<std::wstring> split(const std::wstring& wstr);
 };
 
 #endif // STRINGUTIL_H

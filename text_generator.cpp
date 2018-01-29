@@ -40,10 +40,10 @@ struct Options
     uint32_t numberOfGeneratedWords;
 };
 
-Options parseOptions(int argc, char *argv[]);
+Options parseOptions(int argc, char* argv[]);
 std::vector<std::string> getInputWords();
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     StringUtil::setLocale();
 
@@ -55,7 +55,8 @@ int main(int argc, char *argv[])
 
     /* Сгенерировать текст */
 
-    if (words.size() != markovChain.order() + 1) {
+    if (words.size() != markovChain.order() + 1)
+    {
         std::cerr
             << "Ошибка: количество слов в открывке не соответствует порядку"
                " цепи Маркова."
@@ -67,10 +68,12 @@ int main(int argc, char *argv[])
         decltype(options.numberOfGeneratedWords) i = 0;
         i < options.numberOfGeneratedWords;
         i++
-    ) {
+    )
+    {
         std::string nextWord = markovChain.nextWord(words);
 
-        if (nextWord.empty()) {
+        if (nextWord.empty())
+        {
             break;
         }
 
@@ -78,7 +81,8 @@ int main(int argc, char *argv[])
     }
 
     std::string text;
-    for (auto word: words) {
+    for (auto word: words)
+    {
         text += word + " ";
     }
     text.pop_back(); // Удалить последний пробел
@@ -111,15 +115,17 @@ void printHelpAndExit()
     exit(EXIT_FAILURE);
 }
 
-struct Options parseOptions(int argc, char *argv[])
+struct Options parseOptions(int argc, char* argv[])
 {
     std::string markovFilename;
     unsigned numberOfGeneratedWords;
 
-    if (argc == 3) {
+    if (argc == 3)
+    {
         std::string filename{argv[1]};
 
-        if (filename.empty()) {
+        if (filename.empty())
+        {
             std::cerr << filename
                 << "Ошибка: неверное имя файла с цепью Маркова.\n"
                 << std::endl;
@@ -139,7 +145,8 @@ struct Options parseOptions(int argc, char *argv[])
         auto maxK =
             std::numeric_limits<decltype(Options::numberOfGeneratedWords)>::max();
 
-        if (!option2.eof() || option2.fail() || k < 0 || k > maxK) {
+        if (!option2.eof() || option2.fail() || k < 0 || k > maxK)
+        {
             std::cerr
                 << "Ошибка: неверное количество генерируемых слов.\n"
                 << std::endl;
@@ -149,7 +156,8 @@ struct Options parseOptions(int argc, char *argv[])
 
         numberOfGeneratedWords = k;
     }
-    else {
+    else
+    {
         printHelpAndExit();
     }
 

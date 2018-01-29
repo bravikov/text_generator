@@ -27,33 +27,33 @@
 #ifndef MARKOVCHAIN_H
 #define MARKOVCHAIN_H
 
-#include "3dparty/json.hpp"
-
 #include <string>
 #include <vector>
+
+#include "3dparty/json.hpp"
 
 using json = nlohmann::json;
 
 class MarkovChain
 {
 public:
-    MarkovChain(const uint32_t &order = 0);
-    MarkovChain(const std::string &filename);
+    MarkovChain(const uint32_t& order = 0);
+    MarkovChain(const std::string& filename);
 
-    void append(const std::vector<std::string> &jWords);
+    void append(const std::vector<std::string>& jWords);
     std::string toText() const;
     uint32_t order() const;
-    std::string nextWord(const std::vector<std::string> &words);
+    std::string nextWord(const std::vector<std::string>& words);
 
 private:
     uint32_t m_order;
     json m_json;
 
-    json &jRoot() { return m_json["markonChain"]; }
-    json &jOrder() { return jRoot()["order"]; }
-    json &jWords() { return jRoot()["words"]; }
-    json &jNextWordsCount(json &j) { return j["nextWordsCount"]; }
-    json &jNextWords(json &j) { return j["nextWords"]; }
+    json& jRoot() { return m_json["markonChain"]; }
+    json& jOrder() { return jRoot()["order"]; }
+    json& jWords() { return jRoot()["words"]; }
+    json& jNextWordsCount(json& j) { return j["nextWordsCount"]; }
+    json& jNextWords(json& j) { return j["nextWords"]; }
 };
 
 
