@@ -68,7 +68,7 @@ word и count — произвольные значения.
                     "word": count
                 },
                 "nextWordsCount": count
-            }
+            },
             "word": {
                 "nextWords": {
                     "word": count,
@@ -97,7 +97,7 @@ word и count — произвольные значения.
                         "word": count
                     },
                     "nextWordsCount": count
-                }
+                },
                 "word": {
                     "nextWords": {
                         "word": count,
@@ -105,7 +105,7 @@ word и count — произвольные значения.
                     },
                     "nextWordsCount": count
                 }
-            }
+            },
             "word": {
                 "word": {
                     "nextWords": {
