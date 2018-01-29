@@ -169,6 +169,6 @@ std::string MarkovChain::nextWord(const std::vector<std::string> &words)
         }
     }
 
-    /* Если программа дошла до сюда, значит что-то не в порядке. */
-    return std::string{};
+    std::cerr << "Здесь оказаться невозможно." << std::endl;
+    exit(EXIT_FAILURE);
 }
