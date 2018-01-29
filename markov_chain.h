@@ -49,7 +49,7 @@ private:
     uint32_t m_order;
     json m_json;
 
-    json& jRoot() { return m_json["markonChain"]; }
+    json& jRoot() { return m_json["markovChain"]; }
     json& jOrder() { return jRoot()["order"]; }
     json& jWords() { return jRoot()["words"]; }
     json& jNextWordsCount(json& j) { return j["nextWordsCount"]; }

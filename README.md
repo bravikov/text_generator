@@ -59,7 +59,7 @@ word и count — произвольные значения.
 
 ```json
 {
-    "markonChain": {
+    "markovChain": {
         "order": 0,
         "words": {
             "word": {
@@ -87,7 +87,7 @@ word и count — произвольные значения.
 
 ```json
 {
-    "markonChain": {
+    "markovChain": {
         "order": 1,
         "words": {
             "word": {
@@ -129,7 +129,7 @@ word и count — произвольные значения.
 
 ```json
 {
-    "markonChain": {
+    "markovChain": {
         "order": 1,
         "words": {
             "аа": {
